@@ -1,0 +1,15 @@
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  init:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get Latest Release
+        id: lastrelease
+        with:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: gh release list
