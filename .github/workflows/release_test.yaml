@@ -13,3 +13,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: gh release list
+      - name: test release
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: git describe --tags --abbrev=0 --match 'v*' --exclude '*-rc*' HEAD~
