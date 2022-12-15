@@ -16,4 +16,4 @@ jobs:
       - name: test release
         env:
           GITHUB_TOKEN: ${{ github.token }}
-        run: git fetch --tags && git describe --tags --abbrev=0 --match 'v*' --exclude '*-rc*' HEAD~
+        run: git fetch --tags && git describe --tags --abbrev=0 --match 'v*' --exclude '*-rc*' HEAD
