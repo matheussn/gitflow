@@ -9,7 +9,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Get Latest Release
-        id: lastrelease
-        with:
+        env:
           GITHUB_TOKEN: ${{ github.token }}
         run: gh release list
