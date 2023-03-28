@@ -24,5 +24,6 @@ jobs:
         if: github.event_name == 'release'
         run: | 
           tag=$(git tag --sort=-v:refname | head -n 2 | tail -n 1)
+          echo $(git tag --sort=-v:refname)
           echo $tag
           echo $(git rev-parse $tag)
