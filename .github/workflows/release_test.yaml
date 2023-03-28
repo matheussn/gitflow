@@ -23,7 +23,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         if: github.event_name == 'release'
         run: | 
-          tag=$(git tag --sort=-v:refname | head -n 2 | tail -n 1)
-          echo $(git tag --sort=-v:refname)
+          strTag=$(gh release list -L 2 | head -n 2 | tail -n 1)
+          echo $strTag
+          echo $tag=$(echo $strTag | tr " " "\n" | head -n1)
           echo $tag
-          echo $(git rev-parse $tag)
