@@ -17,3 +17,12 @@ jobs:
         run: gh release list
       - name: test release
         run: echo ${{ github.event_name }}
+      - name: Change base_sha
+        id: change-base-sha
+        env:
+          GH_TOKEN: ${{ github.token }}
+        if: github.event_name == 'release'
+        run: | 
+          tag=$(git tag --sort=-v:refname | head -n 2 | tail -n 1)
+          echo $tag
+          echo $(git rev-parse $tag)
