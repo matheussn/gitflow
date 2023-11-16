@@ -5,6 +5,7 @@
 
 echo $GITHUB_TRIGGERING_ACTOR
 echo $GITHUB_BASE_REF
+echo $GITHUB_HEAD_REF | tr / -
 
 git branch
 
