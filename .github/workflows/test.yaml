@@ -32,21 +32,22 @@ jobs:
       - name: Set variables
         id: setvars
         run: |
-          RESULTS=$(./.github/workflows/compare_bundles.sh)
+          TABLE=$(./.github/workflows/compare_bundles.sh)
+          echo "$SERVICE_NAME=$TABLE" >> $GITHUB_OUTPUT
         env:
           SERVICE_NAME: ${{ matrix.target }}
       - name: printenv
         run: |
           echo '######################'
           printenv
-  # check-matrix:
-  #   runs-on:  ubuntu-22.04
-  #   needs: [ matrix ]
-  #   env:
-  #     mafiapigs-macos: ${{ needs.matrix.outputs.mafiapigs-macos }}
-  #     project-windows: ${{ needs.matrix.outputs.project-windows }}
-  #   steps:
-  #     - name: Set variables
-  #       id: setvars
-  #       run: | 
-  #         printenv
+  check-matrix:
+    runs-on:  ubuntu-22.04
+    needs: [ matrix ]
+    env:
+      mafiapigs-macos: ${{ needs.matrix.outputs.mafiapigs-macos }}
+      project-windows: ${{ needs.matrix.outputs.project-windows }}
+    steps:
+      - name: Set variables
+        id: setvars
+        run: | 
+          printenv
