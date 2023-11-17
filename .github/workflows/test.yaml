@@ -33,7 +33,8 @@ jobs:
         id: setvars
         with:
           export-env: true
-        run: ./.github/workflows/compare_bundles.sh
+        run: |
+          $RESULTS=$(./.github/workflows/compare_bundles.sh)
         env:
           SERVICE_NAME: ${{ matrix.target }}
       - name: printenv
