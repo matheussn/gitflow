@@ -18,29 +18,20 @@ jobs:
           - target: project-windows
             metaId: 2177362
             otherId: 2177360
+    outputs:
+      results: ${{ steps.setvars.outputs.matrix }}
     steps:
-      - run: |
-          matrix=$((
-            echo '${{ toJSON(matrix) }}'
-          ) | jq -c .)
-          echo "$matrix" > matrix
-          echo "::set-output name=matrix::$matrix"
-        id: matrix
-        if: github.event_name == 'workflow_dispatch' && (github.event.inputs.build_target == matrix.target || github.event.inputs.build_target == '*' || github.event.inputs.build_target == '')
-      - uses: actions/upload-artifact@v3
-        with:
-          name: ${{ hashFiles('matrix') || 'none' }}
-          path: matrix
-          if-no-files-found: warn
+      - name: Set variables
+        id: setvars
+        run: |
+          echo "matrix=${{matrix.target}}" >> $GITHUB_OUTPUT
 
   check-matrix:
     runs-on:  ubuntu-22.04
     needs: [ matrix ]
-    outputs:
-      matrix: ${{ steps.matrix.outputs.matrix }}
+    env:
+      test: ${{ needs.matrix.outputs.results }}
     steps:
-      - uses: actions/download-artifact@v3
-      - run: |
-          matrix="$(cat */matrix | jq -c --slurp .)"
-          echo "::set-output name=matrix::$matrix"
-        id: matrix
+      - name: Set variables
+        id: setvars
+        run: echo ${{test}}
