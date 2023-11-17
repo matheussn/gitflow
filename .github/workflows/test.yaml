@@ -8,6 +8,8 @@ on:
 jobs:
   matrix:
     runs-on: ubuntu-22.04
+    env:
+      RESULTS: ''
     strategy:
       fail-fast: false
       matrix:
@@ -24,17 +26,21 @@ jobs:
     steps:
       - name: Set variables
         id: setvars
+        run: ./.github/workflows/compare_bundles.sh
+        env:
+          SERVICE_NAME: ${{ matrix.target }}
+      - name: printenv
         run: |
-          echo "${{matrix.target}}=olá" >> $GITHUB_OUTPUT
-
-  check-matrix:
-    runs-on:  ubuntu-22.04
-    needs: [ matrix ]
-    env:
-      mafiapigs-macos: ${{ needs.matrix.outputs.mafiapigs-macos }}
-      project-windows: ${{ needs.matrix.outputs.project-windows }}
-    steps:
-      - name: Set variables
-        id: setvars
-        run: | 
+          echo '######################'
           printenv
+  # check-matrix:
+  #   runs-on:  ubuntu-22.04
+  #   needs: [ matrix ]
+  #   env:
+  #     mafiapigs-macos: ${{ needs.matrix.outputs.mafiapigs-macos }}
+  #     project-windows: ${{ needs.matrix.outputs.project-windows }}
+  #   steps:
+  #     - name: Set variables
+  #       id: setvars
+  #       run: | 
+  #         printenv
