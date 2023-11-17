@@ -24,6 +24,11 @@ jobs:
       mafiapigs-macos: ${{ steps.setvars.outputs.mafiapigs-macos }}
       project-windows: ${{ steps.setvars.outputs.project-windows }}
     steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          sparse-checkout: |
+            .github
       - name: Set variables
         id: setvars
         run: ./.github/workflows/compare_bundles.sh
