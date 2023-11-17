@@ -31,7 +31,8 @@ jobs:
     runs-on:  ubuntu-22.04
     needs: [ matrix ]
     env:
-      test: ${{ needs.matrix.outputs.results }}
+      mafiapigs-macos: ${{ needs.matrix.outputs.mafiapigs-macos }}
+      project-windows: ${{ needs.matrix.outputs.project-windows }}
     steps:
       - name: Set variables
         id: setvars
