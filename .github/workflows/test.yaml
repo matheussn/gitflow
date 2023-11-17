@@ -1,4 +1,4 @@
-name: Compare Bundles
+name: Matrix test
 
 on:
   pull_request:
@@ -34,4 +34,5 @@ jobs:
     steps:
       - name: Set variables
         id: setvars
-        run: echo ${{test}}
+        run: | 
+          printenv
