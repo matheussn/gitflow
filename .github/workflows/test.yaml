@@ -31,8 +31,6 @@ jobs:
             .github
       - name: Set variables
         id: setvars
-        with:
-          export-env: true
         run: |
           $RESULTS=$(./.github/workflows/compare_bundles.sh)
         env:
