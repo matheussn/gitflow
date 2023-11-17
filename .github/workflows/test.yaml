@@ -19,12 +19,13 @@ jobs:
             metaId: 2177362
             otherId: 2177360
     outputs:
-      results: ${{ steps.setvars.outputs.matrix }}
+      mafiapigs-macos: ${{ steps.setvars.outputs.mafiapigs-macos }}
+      project-windows: ${{ steps.setvars.outputs.project-windows }}
     steps:
       - name: Set variables
         id: setvars
         run: |
-          echo "matrix=${{matrix.target}}" >> $GITHUB_OUTPUT
+          echo "${{matrix.target}}=olá" >> $GITHUB_OUTPUT
 
   check-matrix:
     runs-on:  ubuntu-22.04
